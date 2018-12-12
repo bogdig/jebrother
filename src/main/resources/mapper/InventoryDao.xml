@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ergou.jebrother.dao.InventoryDao">
+
+    <select id="queryInventory" resultType="com.ergou.jebrother.entity.Inventory">
+        SELECT inventory_id, inventory_name, model, total_num, sold_num, purchase_date, unit_price, total_amount
+        FROM inventory_list
+        ORDER BY purchase_date
+        DESC
+    </select>
+
+    <select id="queryInventoryById" resultType="com.ergou.jebrother.entity.Inventory">
+        SELECT inventory_id, inventory_name, model, total_num, sold_num, purchase_date, unit_price, total_amount
+        FROM inventory_list
+        WHERE inventory_id = #{inventoryId}
+    </select>
+
+    <insert id="insertInventory" useGeneratedKeys="true" keyProperty="inventoryId" keyColumn="inventory_id"
+            parameterType="com.ergou.jebrother.entity.Inventory">
+        INSERT INTO
+        inventroy_list(inventory_name, model, total_num, sold_num, purchase_date, unit_price, total_amount)
+        VALUES
+        (#{inventoryName}, #{model}, #{totalNum}, #{soldNmu}, #{purchaseDate}, #{unitPrice}, #{totalAmount})
+    </insert>
+
+    <update id="updateInventory" parameterType="com.ergou.jebrother.entity.Inventory">
+        UPDATE inventroy_list
+        <set>
+            <if test="inventoryName!=null">inventory_name=#{inventoryName},</if>
+            <if test="model!=null">model=#{model},</if>
+            <if test="totalNum!=null">total_num=#{totalNum},</if>
+            <if test="soldNum!=null">sold_num=#{soldN8m},</if>
+            <if test="purchaseDate!=null">purchase_date=#{purchaseDate},</if>
+            <if test="unitPrice!=null">unit_price=#{unitPrice},</if>
+            <if test="totalAmount!=null">total_amount=#{totalAmount}</if>
+        </set>
+        WHERE inventory_id = #{inventoryId}
+    </update>
+
+    <delete id="deleteInventory">
+        DELETE FROM
+        inventory_list
+        WHERE
+        inventroy_id = #{inventoryId}
+    </delete>
+
+</mapper>

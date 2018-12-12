@@ -1,0 +1,21 @@
+server:
+  servlet:
+    context-path: /jebrother
+  port: 8082
+
+jdbc:
+  #数据库驱动
+  driver: com.mysql.jdbc.Driver
+  #数据库url
+  url: jdbc:mysql://localhost:3306/jebrother
+  #数据库用户密码
+  user: root
+  password: shz123000
+
+#mybatis配置
+mybatis_config_file: mybatis-config.xml
+mapper_path: /mapper/**.xml
+entity_package: com.ergou.jebrother.entity
+spring:
+  aop:
+    auto: true

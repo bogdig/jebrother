@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ergou.jebrother.dao.SoldDao">
+
+    <select id="querySold" resultType="com.ergou.jebrother.entity.Sold">
+        SELECT sold_id, sold_name, model, hand_person, ship_date, sell_price, profit
+        FROM sold_list
+        ORDER BY ship_date
+        DESC
+    </select>
+
+    <select id="querySoldById" resultType="com.ergou.jebrother.entity.Sold">
+        SELECT sold_id, sold_name, model, hand_person, ship_date, sell_price, profit
+        FROM sold_list
+        WHERE sold_id = #{soldId}
+    </select>
+
+    <insert id="insertSold" useGeneratedKeys="true" keyProperty="soldId" keyColumn="sold_id"
+            parameterType="com.ergou.jebrother.entity.Sold">
+        INSERT INTO
+        sold_list (sold_name, model, hand_person, ship_date, sell_price, profit)
+        VALUES
+        (#{soldName}, #{model}, #{handPerson}, #{shipDate}, #{sellPrice}, #{profit})
+    </insert>
+
+    <update id="updateSole" parameterType="com.ergou.jebrother.entity.Sold">
+        UPDATE sold_list
+        <set>
+            <if test="soldName!=null">sold_name=#{soldName},</if>
+            <if test="model!=null">model=#{model},</if>
+            <if test="handPerson!=null">hand_person=#{handPerson},</if>
+            <if test="shipDate!=null">ship_date=#{shipDate},</if>
+            <if test="sellPrice!=null">sell_price=#{sellPrice},</if>
+            <if test="profit!=null">prifit=#{profit}</if>
+        </set>
+        WHERE
+        sold_id = #{soldId}
+    </update>
+
+    <delete id="deleteSold">
+        DELETE FROM
+        sold_list
+        WHERE
+        sold_id = #{soldId}
+    </delete>
+</mapper>
