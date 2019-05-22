@@ -2,6 +2,7 @@ package com.ergou.jebrother.config.dao;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import org.apache.commons.dbcp.BasicDataSource;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -59,7 +60,7 @@ public class DataSourceConfiguration {
     }
 
     @Bean(name = "druidDataSource")//阿里巴巴druid
-    public DruidDataSource createDruidDataSource(){
+    public DruidDataSource createDruidDataSource() {
         DruidDataSource druidDataSource = new DruidDataSource();
         druidDataSource.setDriverClassName(jdbcDriver);
         druidDataSource.setUrl(jdbcUrl);
@@ -79,6 +80,24 @@ public class DataSourceConfiguration {
         druidDataSource.setTimeBetweenConnectErrorMillis(6000);
 
         return druidDataSource;
+    }
+
+    @Bean(name = "basicDataSource")
+    public BasicDataSource createDBCPDataSource() {
+        BasicDataSource basicDataSource = new BasicDataSource();
+
+        basicDataSource.setDriverClassName(jdbcDriver);
+        basicDataSource.setUrl(jdbcUrl);
+        basicDataSource.setUsername(jdbcUser);
+        basicDataSource.setPassword(jdbcPassword);
+
+        basicDataSource.setInitialSize(1);
+        basicDataSource.setMinIdle(10);
+        basicDataSource.setMaxActive(20);
+        basicDataSource.setMaxWait(60000);
+        basicDataSource.setTimeBetweenEvictionRunsMillis(60000);
+
+        return basicDataSource;
     }
 
 }

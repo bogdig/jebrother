@@ -34,6 +34,10 @@ public class SessionFactoryConfiguration {
     @Autowired
     private DataSource druidDataSource;
 
+    @Autowired
+    @Qualifier("basicDataSource")
+    private DataSource basicDataSource;
+
     @Bean("sqlSessionFactory")
     public SqlSessionFactoryBean createSqlSessionFactoryBean() throws IOException {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
@@ -47,7 +51,7 @@ public class SessionFactoryConfiguration {
         sqlSessionFactoryBean.setMapperLocations(resolver.getResources(packageSearchPath));
 
         //设置dataSource
-        sqlSessionFactoryBean.setDataSource(druidDataSource);
+        sqlSessionFactoryBean.setDataSource(basicDataSource);
 
         //设置typesAlies包扫描路径
         sqlSessionFactoryBean.setTypeAliasesPackage(entityPackage);
