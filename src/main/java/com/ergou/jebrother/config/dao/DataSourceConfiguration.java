@@ -91,7 +91,9 @@ public class DataSourceConfiguration {
         basicDataSource.setUsername(jdbcUser);
         basicDataSource.setPassword(jdbcPassword);
 
-        basicDataSource.setInitialSize(1);
+        //连接池参数设置
+        //设置连接池初始值大小
+        basicDataSource.setInitialSize(2);
         basicDataSource.setMinIdle(10);
         basicDataSource.setMaxActive(20);
         basicDataSource.setMaxWait(60000);
